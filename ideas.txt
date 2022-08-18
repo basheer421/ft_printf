@@ -1,0 +1,10 @@
+init with va_start()
+each call for va_arg() goes to next occurance
+finish up with va_end()
+
+so if the main (first) argument is "hello" and (...) arguments are 'h' 'x'
+	we can accsess them by va_arg()
+	the first call of va_arg() will return 'h'
+	the second one will return 'x' and so on... 
+
+use strstr() to find %s and all %x flags
