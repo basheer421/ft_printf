@@ -6,7 +6,7 @@
 /*   By: bammar <bammar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 18:32:56 by bammar            #+#    #+#             */
-/*   Updated: 2022/08/21 18:48:57 by bammar           ###   ########.fr       */
+/*   Updated: 2022/08/21 21:08:51 by bammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-int	ft_putchar_fd(char c, int fd)
+int	ft_putchar_fd(int c, int fd)
 {
-	char	cc;
+	char	x;
 
-	cc = c;
-	write(fd, &cc, 1);
+	x = c;
+	write(fd, &x, 1);
 	return (1);
 }
 
@@ -40,6 +40,11 @@ int	ft_putstr_fd(char *s, int fd)
 	{
 		while (s[i] != 0)
 			write(fd, &s[i++], 1);
+	}
+	else
+	{
+		write(fd, "(null)", 6);
+		return (6);
 	}
 	return (i);
 }
