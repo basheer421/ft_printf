@@ -1,7 +1,5 @@
-NAME = ft_printf.a
+NAME = libftprintf.a
 FILES = ft_printf.c ft_printf_utils.c
-LIBFT_DICT = libft
-LIBFT = libft.a
 CC = cc	
 CFLAGS = -Wall -Wextra -Werror
 OBJS = $(FILES:.c=.o)

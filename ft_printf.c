@@ -6,7 +6,7 @@
 /*   By: bammar <bammar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 19:56:33 by bammar            #+#    #+#             */
-/*   Updated: 2022/08/21 18:52:11 by bammar           ###   ########.fr       */
+/*   Updated: 2022/08/21 18:54:16 by bammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,13 @@ int	ft_printf(const char *format, ...)
 	return (counter);
 }
 
-int	main(void)
-{
-	// char *x = "";
-	// char *y = malloc(0);
-	int x = ft_printf("%p %s\n", "hello\n", "bye");
-	int y = printf("%p %s\n", "hello\n", "bye");
-	printf("%d %d\n", x, y);
-	// free(y);
-	return (0);
-}
+// int	main(void)
+// {
+// 	// char *x = "";
+// 	// char *y = malloc(0);
+// 	int x = ft_printf("%p %s\n", "hello\n", "bye");
+// 	int y = printf("%p %s\n", "hello\n", "bye");
+// 	printf("%d %d\n", x, y);
+// 	// free(y);
+// 	return (0);
+// }
