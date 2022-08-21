@@ -1,5 +1,5 @@
 NAME = ft_printf.a
-FILES = ft_printf.c
+FILES = ft_printf.c ft_printf_utils.c
 LIBFT_DICT = libft
 LIBFT = libft.a
 CC = cc	
@@ -9,14 +9,12 @@ OBJS = $(FILES:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS) # Make .o files and make .a file
-	cd $(LIBFT_DICT) && make $(LIBFT) && cd ..
-	ar rcs $(NAME) $(OBJS) $(LIBFT_DICT)/$(LIBFT)
+	ar rcs $(NAME) $(OBJS)
 
 clean: # Removes all .o files
-	cd $(LIBFT_DICT) && make clean && cd ..
 	rm -f $(OBJS)
 
 fclean:	clean # Removes the .a file
-	rm -f $(NAME) $(LIBFT_DICT)/$(LIBFT)
+	rm -f $(NAME)
 
 re:	fclean all # Removes .a file and redo

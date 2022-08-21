@@ -6,13 +6,13 @@
 /*   By: bammar <bammar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 19:56:33 by bammar            #+#    #+#             */
-/*   Updated: 2022/08/21 04:43:06 by bammar           ###   ########.fr       */
+/*   Updated: 2022/08/21 18:52:11 by bammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	print_hexa(long long n, int small)
+static int	print_hexa(long long n, int small)
 {
 	long long	x;
 	char		final[100];
@@ -35,80 +35,90 @@ static void	print_hexa(long long n, int small)
 	j = (int)ft_strlen(final);
 	while (j >= 1)
 		ft_putchar_fd(final[--j], 1);
+	return ((int)ft_strlen(final));
 }
 
-static void	print_pointer(unsigned long p)
+static int	print_pointer(unsigned long p)
 {
-	ft_putstr_fd("0x", 1);
-	print_hexa((long)(long)p, 1);
+	int	count;
+
+	count = ft_putstr_fd("0x", 1);
+	return (count + print_hexa((long)(long)p, 1));
 }
 
-void	ft_putunbr_fd(unsigned int n, int fd)
+static int	ft_putunbr_fd(unsigned int n, int fd)
 {
+	int		count;
 	char	c;
 
 	c = '0';
+	count = 0;
 	if (n < 10)
 	{
 		c += n;
-		ft_putchar_fd(c, 1);
+		count += ft_putchar_fd(c, 1);
 	}
 	else
 	{
-		ft_putunbr_fd(n / 10, fd);
-		ft_putunbr_fd(n % 10, fd);
+		count += ft_putunbr_fd(n / 10, fd);
+		count += ft_putunbr_fd(n % 10, fd);
 	}
+	return (count);
 }
 
-static void	print_case(const char *format, va_list ap, int i)
+static int	print_case(const char *format, va_list ap, int i)
 {
 	if (format[i + 1] == '%')
-		ft_putchar_fd('%', 1);
+		return (ft_putchar_fd('%', 1));
 	else if (format[i + 1] == 's')
-		ft_putstr_fd((char *)va_arg(ap, char *), 1);
+		return (ft_putstr_fd((char *)va_arg(ap, char *), 1));
 	else if (format[i + 1] == 'c')
-		ft_putchar_fd((char)va_arg(ap, int), 1);
+		return (ft_putchar_fd((char)va_arg(ap, int), 1));
 	else if (format[i + 1] == 'd' || format[i + 1] == 'i')
-		ft_putnbr_fd((int)va_arg(ap, int), 1);
+		return (ft_putnbr_fd((int)va_arg(ap, int), 1));
 	else if (format[i + 1] == 'u')
-		ft_putunbr_fd(va_arg(ap, int), 1);
+		return (ft_putunbr_fd(va_arg(ap, int), 1));
 	else if (format[i + 1] == 'p')
-		print_pointer(va_arg(ap, unsigned long));
+		return (print_pointer(va_arg(ap, unsigned long)));
 	else if (format[i + 1] == 'x')
-		print_hexa(va_arg(ap, long long), 1);
+		return (print_hexa(va_arg(ap, long long), 1));
 	else if (format[i + 1] == 'X')
-		print_hexa(va_arg(ap, long long), 0);
+		return (print_hexa(va_arg(ap, long long), 0));
+	return (0);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	int		i;
+	int		counter;
 
 	va_start(ap, format);
 	i = 0;
+	counter = 0;
 	while (format[i] != 0)
 	{
 		if (format[i] == '%')
 		{
-			print_case(format, ap, i);
+			counter += print_case(format, ap, i);
 			i += 2;
 		}
 		if (format[i] != 0 && format[i] != '%')
-			ft_putchar_fd(format[i], 1);
+			counter += ft_putchar_fd(format[i], 1);
 		if (format[i] != '%')
 			i++;
 	}
 	va_end(ap);
-	return (0);
+	return (counter);
 }
 
-// int	main(void)
-// {
-// 	// char *x = "";
-// 	// char *y = malloc(0);
-// 	ft_printf("%u\n", -1);
-// 	printf("%u\n", -1);
-// 	// free(y);
-// 	return (0);
-// }
+int	main(void)
+{
+	// char *x = "";
+	// char *y = malloc(0);
+	int x = ft_printf("%p %s\n", "hello\n", "bye");
+	int y = printf("%p %s\n", "hello\n", "bye");
+	printf("%d %d\n", x, y);
+	// free(y);
+	return (0);
+}
