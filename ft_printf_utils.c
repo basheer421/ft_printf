@@ -6,13 +6,13 @@
 /*   By: bammar <bammar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 18:32:56 by bammar            #+#    #+#             */
-/*   Updated: 2022/08/21 21:08:51 by bammar           ###   ########.fr       */
+/*   Updated: 2022/10/07 20:59:44 by bammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	ft_strlen(const char *s)
+size_t	pf_strlen(const char *s)
 {
 	size_t	i;
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-int	ft_putchar_fd(int c, int fd)
+int	pf_putchar_fd(int c, int fd)
 {
 	char	x;
 
@@ -31,7 +31,7 @@ int	ft_putchar_fd(int c, int fd)
 	return (1);
 }
 
-int	ft_putstr_fd(char *s, int fd)
+int	pf_putstr_fd(char *s, int fd)
 {
 	int	i;
 
@@ -49,7 +49,7 @@ int	ft_putstr_fd(char *s, int fd)
 	return (i);
 }
 
-int	ft_putnbr_fd(int n, int fd)
+int	pf_putnbr_fd(int n, int fd)
 {
 	char	c;
 	int		count;
@@ -58,20 +58,20 @@ int	ft_putnbr_fd(int n, int fd)
 	count = 0;
 	if (n == -2147483648)
 	{
-		count += ft_putstr_fd("-214", 1);
-		count += ft_putnbr_fd(7483648, fd);
+		count += pf_putstr_fd("-214", 1);
+		count += pf_putnbr_fd(7483648, fd);
 	}
 	else if (n < 0)
 	{
-		count += ft_putstr_fd("-", 1);
-		count += ft_putnbr_fd(n * -1, fd);
+		count += pf_putstr_fd("-", 1);
+		count += pf_putnbr_fd(n * -1, fd);
 	}
 	else if (n < 10)
-		count += ft_putchar_fd(c + n, 1);
+		count += pf_putchar_fd(c + n, 1);
 	else
 	{
-		count += ft_putnbr_fd(n / 10, fd);
-		count += ft_putnbr_fd(n % 10, fd);
+		count += pf_putnbr_fd(n / 10, fd);
+		count += pf_putnbr_fd(n % 10, fd);
 	}
 	return (count);
 }
